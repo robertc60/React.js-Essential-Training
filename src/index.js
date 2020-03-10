@@ -1,23 +1,41 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React , {Component} from 'react'
+import ReactDOM, {render} from 'react-dom'
 
-class Message extends React.Component {
-    render() {
-        console.log(this.props)
-        return (
-            <div>
-                <h1 style={{color: this.props.color}}>
-                    {this.props.msg}
-                </h1>
-        <p>I'll check back in {this.props.mins} minutes</p>
-            </div>
-        )
-    }
+let holidayDays = {
+    total: 25,
+    taken: 0,
+    leftToTake: 25
 }
 
+const getPercent = decimal => {
+    return decimal * 100 + '%'
+}
 
+const calcPercentageLeft = (total, leftToTake) => {
+    return getPercent(leftToTake/total)
+}
 
-ReactDOM.render(
-    <Message color="blue" msg="How are you?" mins={5}/>,
+const WorkHolidayDays = ({total, taken, leftToTake}) => {
+    return (
+        <section>
+            <div>
+                <p>Total Holidays: {total}</p>
+            </div>  
+            <div>
+                <p>Total Holidays: {taken}</p>
+            </div>  
+            <div>
+                <p>Total Holidays: {calcPercentageLeft(total, leftToTake)}</p>
+            </div>  
+        </section>
+    )
+}
+
+render(
+    <WorkHolidayDays 
+        total={holidayDays.total}
+        taken={holidayDays.taken}
+        leftToTake={holidayDays.leftToTake}
+    />,
     document.getElementById('root')
 )
